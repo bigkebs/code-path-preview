@@ -1,5 +1,6 @@
 # code-path-preview
 wine_codepath preview
+
 # Week 1 Tasks
 
 # Import necessary libraries
@@ -59,7 +60,6 @@ print(f"Recall: {recall}")
 print(f"F1 Score: {f1}")
 print("Confusion Matrix:")
 print(conf_matrix)
-
 
 # Week 2 Tasks
 
@@ -213,6 +213,7 @@ results_df = pd.DataFrame({
     'Recall': recalls,
     'F1 Score': f1_scores
 })
+print("results:", results_df)
 
 # Step 1: Generate new instances
 new_instances = [
@@ -239,7 +240,6 @@ plt.ylabel('New Instances')
 plt.title('Predicted Classes for New Instances')
 plt.legend()
 plt.show()
-
 
 # New instances
 new_instances = [
@@ -300,3 +300,4 @@ plt.title("Confusion Matrix - SVM")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
 plt.show()
+
