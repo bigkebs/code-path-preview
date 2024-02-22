@@ -58,7 +58,6 @@ print(f"F1 Score: {f1}")
 print("Confusion Matrix:")
 print(conf_matrix)
 
-
 # Week 2 Tasks
 
 # 6. Model 2: Decision Trees
@@ -211,6 +210,7 @@ results_df = pd.DataFrame({
     'Recall': recalls,
     'F1 Score': f1_scores
 })
+print("results:", results_df)
 
 # Step 1: Generate new instances
 new_instances = [
@@ -237,7 +237,6 @@ plt.ylabel('New Instances')
 plt.title('Predicted Classes for New Instances')
 plt.legend()
 plt.show()
-
 
 # New instances
 new_instances = [
@@ -297,4 +296,74 @@ sns.heatmap(conf_matrix_svm, annot=True, fmt="d", cmap="Reds", xticklabels=wine_
 plt.title("Confusion Matrix - SVM")
 plt.xlabel("Predicted Label")
 plt.ylabel("True Label")
+plt.show()
+
+
+# Load the Wine dataset
+wine_dataset = load_wine()
+
+# Convert dataset to pandas DataFrame for easier manipulation
+df = pd.DataFrame(data=wine_dataset.data, columns=wine_dataset.feature_names)
+df['target'] = wine_dataset.target
+
+# Summary statistics of the dataset
+print("Summary Statistics:")
+print(df.describe())
+
+# Pairplot to visualize relationships between features
+plt.figure(figsize=(12, 8))
+sns.pairplot(df, hue='target', palette='viridis')
+plt.title("Pairplot of Wine Dataset")
+plt.show()
+
+# Correlation heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+plt.title("Correlation Heatmap of Wine Dataset")
+plt.show()
+
+# Boxplot of each feature by target class
+plt.figure(figsize=(12, 8))
+for i, feature in enumerate(wine_dataset.feature_names):
+    plt.subplot(3, 5, i+1)
+    sns.boxplot(x='target', y=feature, data=df, palette='viridis')
+    plt.title(f"{feature} by Class")
+plt.tight_layout()
+plt.show()
+
+# Define the features of the new instances
+new_instances_data = {
+    'Alcohol': [13.5, 12.0, 14.0],
+    'Malic Acid': [2.5, 1.5, 3.0],
+    'Ash': [2.6, 2.1, 2.8],
+    'Alcalinity of Ash': [20.0, 18.0, 26.0],
+    'Magnesium': [120, 88, 100],
+    'Total Phenols': [2.6, 2.4, 3.2],
+    'Flavanoids': [2.9, 2.3, 3.4],
+    'Nonflavanoid Phenols': [0.3, 0.2, 0.3],
+    'Proanthocyanins': [1.2, 0.8, 1.8],
+    'Color Intensity': [3.5, 2.0, 5.3],
+    'Hue': [1.1, 0.8, 1.2],
+    'OD280/OD315 of Diluted Wines': [2.7, 3.0, 2.8],
+    'Proline': [1000, 520, 900]
+}
+
+# Convert the new instances data to a DataFrame
+new_instances_df = pd.DataFrame(new_instances_data)
+
+# Display the summary statistics of the new instances
+print("Summary Statistics of New Instances:")
+print(new_instances_df.describe())
+
+# Visualize the distribution of features in the new instances using boxplots
+plt.figure(figsize=(12, 8))
+sns.boxplot(data=new_instances_df, palette='viridis')
+plt.title("Boxplot of Features in New Instances")
+plt.xticks(rotation=45)
+plt.show()
+
+# Visualize the correlation between features in the new instances using a heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(new_instances_df.corr(), annot=True, cmap='coolwarm')
+plt.title("Correlation Heatmap of Features in New Instances")
 plt.show()
